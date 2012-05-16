@@ -1,5 +1,5 @@
 <?php include("include/header.php"); 
-    if( isset($_GET["search"]) ){
+    if( isset($_GET["search"]) || isset($_POST["search"]) ){
         try {
             $dbc2 = mysql_connect('localhost', 'k16768_the_max', '4f3318d83020c', 'k16768_the_max');
             if( $dbc2 == null ) {
@@ -9,7 +9,12 @@
         catch(Exception $e) {
             echo 'Message: ' . $e->getMessage();
         }
+        //if( isset($_GET["search"]) ) {
         $value =  $_GET["search"]; 
+        //}
+        //else if( isset($_POST["search"]) {
+        //$value = $_POST["search"];
+        //}
         $query2 = "SELECT product_id, title, description, price, product_img_s FROM k16768_the_max.products WHERE type LIKE '" . $value . "' && title LIKE '" . $value . "' && description LIKE '" . $value . "'";
         $result2 = mysql_query($query2);
         mysql_close($dbc2);
@@ -50,6 +55,7 @@
     echo $value . "   " .  $result2;
     include("include/footer.php"); 
 ?>
+
 
 
 

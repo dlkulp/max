@@ -30,13 +30,15 @@
     <body>
         <div id="content">
             <div id="logo">
-                <img id="raider" src="../img/RaiderbotWhite_big_chopped.png" />
+                <img id="raider" src="img/RaiderbotWhite_big_chopped.png" />
             </div>
             <div id="sign_in">
-                <div id="user_pass">
+                <div id="top_bar">
                     <a id="sign">sign in</a>
                     <a id="" href="sign_out.php">sign out</a>
                     <a href="new_account.php">sign up</a>
+                </div>
+                <div id="head1">
                     <form target="hello.php">
                         <input id="input_user" type="text" name="username" />
                         <input type="password" name="user_pass" />
@@ -55,6 +57,11 @@
                     <div id="bottom">
                         Student Store
                     </div>
+                </div>
+                <div id="searchBar" >
+                    <form target="search.php?search=">
+                        <input id="search" name="search" type="search" placeholder="search products" />
+                    </form>
                 </div>
                 <div id="main_menu">
                     <ul id="menu">

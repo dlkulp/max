@@ -22,7 +22,8 @@
     background-color: #530000;
     width: 500px;
     height: 150px;
-    float: right;
+    margin-left: auto;
+    /*float: right;*/
     display: block;
     border: 5px solid;
     margin-top: 15px;
@@ -63,7 +64,7 @@
 }
 
 #main_menu {
-    margin-top: 10px;
+    margin-top: 84px;
     margin-bottom: 15px;
     z-index: 9999999999999;
 }
@@ -74,6 +75,7 @@
     right: 25px;
     top: 0px;
     width: 135px;
+    
 }
 
 #sign_in a {
@@ -122,6 +124,7 @@
     position: absolute;
     right: 20px;
     top: 5px;
+    /*width: 120px;*/
 }
 
 #new_account {
@@ -130,14 +133,14 @@
 
 #searchBar {
     position: relative;
-    padding-top: 20px;
+    padding-top: 30px;
     margin-left: auto;
     float: right;
 }
 
 #search {
     width: 200px;
-    border: 2px solid;
+    border: 2px solid black;
     height: 20px;
 }
 
