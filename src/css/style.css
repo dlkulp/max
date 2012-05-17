@@ -74,7 +74,7 @@
     position: absolute;
     right: 25px;
     top: 0px;
-    width: 135px;
+    width: 140px;
     
 }
 
@@ -122,9 +122,8 @@
 
 #top_bar {
     position: absolute;
-    right: 20px;
     top: 5px;
-    /*width: 120px;*/
+    width: 140px;
 }
 
 #new_account {
@@ -209,6 +208,9 @@ body {
     margin: 5px;
     display: inline-block;
     vertical-align: center;
+}
+.product_img-1 {
+    border: none;
 }
 
 #buy_now {

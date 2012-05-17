@@ -24,7 +24,7 @@
                             echo "<div class='product'>" . 
                                     "<a href='product_info.php?id=" . $row['product_id'] . "'>" . 
                                         "<div class='product_img'>" .
-                                            "<img border='0' src='" . $value . "' />" . 
+                                            "<img alt='product' class='product_img-1' src='" . $value . "' />" . 
                                         "</div>" . 
                                         "<div class='product_top'>" . 
                                             "<div class='product_title'>" . 
