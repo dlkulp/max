@@ -152,20 +152,17 @@
     width: 150px;
 }
 
-#signed_in {
-    clear: both;
-    position: fixed;
-    width: 75px;
-    left: 50%;
-    top: 0px;
-    height: 20px;
-    display: inline-block;
-}
-
 #welcome_user {
+    clear: both;
     position: absolute;
     right: 170px;
-    top: 0px;
+    top: 5px;
+}
+
+#login_output {
+    position: absolute;
+    left: 50%;
+    top: 5px;
 }
 
 /*-------------------------*/
@@ -320,7 +317,7 @@ form.a {
     float: left;
     padding: 0 0 10px 0;
     position: relative;
-	line-height: 0;
+    line-height: 0;
 }
 
 #menu a 

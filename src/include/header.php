@@ -1,38 +1,7 @@
 <?php
-    $database = 1;
-    $sign_in = -1;
-    if( !isset($_POST["username"]) && !isset($_POST["password"]) ){
-        session_start();
-        $the = 0;
-    }
-    else if( isset($_POST["username"]) && isset($_POST["password"]) ){    
-        $the = 1;
-        try {
-            $dbc = mysql_connect('localhost', 'k16768_the_max', '4f3318d83020c', 'k16768_the_max');
-            if( $dbc == null ) {
-                throw new Exception("Hmmm, something went wrong when trying to submit your info, you should try again now or later to see if it works.<br /> If you are still getting errors you can try contacting us.<br /><br />Error: #" . mysql_errno() . " " . mysql_error() . "<br />");
-            }
-        }
-        catch(Exception $e) {
-            echo 'Message: ' . $e->getMessage();
-            $database = 0;
-        }
-        if( $database == 1 ) {
-            $query = "SELECT username, password FROM k16768_the_max.users WHERE username = '" . $_POST['username'] . "'";
-            $result = mysql_query($query);
-            $row = mysql_fetch_array($result, MYSQL_ASSOC);
-            if( $row['password'] == md5($_POST['password']) ) {
-                session_start();
-                $_SESSION['username'] = $_POST['username'];
-                $_SESSION['password'] = $_POST['password'];
-                $the = 2;
-            }
-            else { 
-                $sign_in = 0;
-                $the = 3;
-            }
-        }
-        mysql_close($dbc);
+    session_start();
+    if( !isset($_SESSION['username']) ) {
+            $_SESSION['username'] = "anonymous";
     }
 ?>
 <!DOCTYPE html>
@@ -41,11 +10,6 @@
         <link rel="stylesheet" type="text/css" href="../css/style.css">
         <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
         <script type='text/javascript' src='../javascript/page.php'></script>
-<?php
-            if( !isset($_SESSION['username']) ) {
-                echo "<script type='text/javascript' src='../javascript/error.js'></script>";
-            }
-        ?>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>The Max Student Store</title>
     </head>
@@ -54,15 +18,31 @@
             <div id="logo">
                 <img alt="raider logo" id="raider" src="img/RaiderbotWhite_big_chopped.png" />
             </div>
+            <div id="login_output">
+                <?php
+                    if( $_SESSION['login_failed'] === 1 ) {
+                        echo "Login successful!";
+                        $_SESSION['login_failed'] = null;
+                    }
+                    else if( $_SESSION['login_failed'] === 0 ) {
+                        echo "Login failed!";
+                        $_SESSION['login_failed'] = null;
+                    }
+                ?>
+            </div>
+            <div id="welcome_user">
+                <?php 
+                    echo "hello " . $_SESSION['username'] . "!";
+                ?>
+            </div>
             <div id="sign_in">
                 <div id="top_bar">
-                    
                     <?php
-                        if( isset($_SESSION['username']) ) {
-                            echo "<a href='sign_out.php'>sign out</a>";
+                        if( $_SESSION['username'] == "anonymous" ) {
+                            echo "<a id='sign'>sign in</a>";
                         }
                         else {
-                            echo "<a id='sign'>sign in</a>";
+                            echo "<a href='sign_out.php'>sign out</a>";
                         }
                     ?>
                     
@@ -89,7 +69,7 @@
                     </div>
                 </div>
                 <div id="searchBar" >
-                    <form target="../search.php?search=">
+                    <form action="search.php?search=" method="get">
                         <input id="search" name="search" type="search" placeholder="search products" />
                     </form>
                 </div>
@@ -108,7 +88,9 @@
                         </li>
                     </ul>
                 </div>
-                <?php echo $the;?>
+                <?php 
+                    echo $_SESSION['the'] . " " . $_SESSION['login_failed'] . " " . $_SESSION['username'] ;
+                ?>
                 <br />
                 
             
