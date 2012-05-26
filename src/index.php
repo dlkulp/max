@@ -32,7 +32,7 @@
                                                     $row['title'] . 
                                                 "</div>" . 
                                                 "<div class='cost'>" . 
-                                                    $row['price'] . 
+                                                    "$" . $row['price'] . 
                                                 "</div>" . 
                                             "</div>" . 
                                             "<div class='description'>" . 
