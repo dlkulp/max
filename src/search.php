@@ -2,7 +2,7 @@
     if( isset($_GET["search"]) || isset($_POST["search"]) ){
         try {
             $dbc2 = mysql_connect('localhost', 'k16768_the_max', '4f3318d83020c', 'k16768_the_max');
-            $_SESSION['the'] = 5;;
+            $_SESSION['the'] = 5;
             if( $dbc2 == null ) {
                 $_SESSION['the'] = 6;
                 throw new Exception("Hmmm, something went wrong.... :(<br />Try reloading your page, or try again later! </br /><br /><br />Error: #" . mysql_errno() . " " . mysql_error() . "<br />");
@@ -12,16 +12,21 @@
             echo 'Message: ' . $e->getMessage();
             $_SESSION['the'] = 7;
         }
-        $value =  $_GET["search"];
-        $query2 = "SELECT product_id, title, description, price, product_img_s FROM k16768_the_max.products WHERE type LIKE '%" . $value . "%' or title LIKE '%" . $value . "%' or description LIKE '%" . $value . "%'";
-        $result2 = mysql_query($query2);
+        $value =  "%" . $_GET["search"] . "%";
+        $dbh = new PDO('mysql:host=localhost;dbname=k16768_the_max', 'k16768_the_max', '4f3318d83020c');
+        $stmt = $dbh->prepare("SELECT product_id, title, description, price, product_img_s FROM k16768_the_max.products WHERE type LIKE :value or title LIKE :value or description LIKE :value");
+        $stmt->bindParam(':value', $value);
+        $stmt->execute();
+        
+        //$query2 = "SELECT product_id, title, description, price, product_img_s FROM k16768_the_max.products WHERE type LIKE '%" . $value . "%' or title LIKE '%" . $value . "%' or description LIKE '%" . $value . "%'";
+        //$result2 = mysql_query($query2);
         
         $_SESSION['the'] = 8;
 ?>
                     <div id="main_text">
                         <?php
                             $_SESSION['the'] = 9;
-                            while( $row2 = mysql_fetch_array($result2, MYSQL_ASSOC) ) {
+                            while( $row2 = $stmt->fetch(PDO::FETCH_ASSOC) ) {
                                 $values = $row2['product_img_s'];
                                 if( strlen(trim($values)) == 0 ){
                                     $values = "img/swords.png";
@@ -29,7 +34,7 @@
                                 }
                                 $_SESSION['the'] = 11;
                                 echo "<div class='product'>" . 
-                                        "<a href='product_info.php?id=" . $row2['id'] . "'>" . 
+                                        "<a href='product_info.php?id=" . $row2['product_id'] . "'>" . 
                                             "<div class='product_img'>" .
                                                 "<img border='0' src='" . $values . "' />" . 
                                             "</div>" . 
@@ -54,7 +59,7 @@
 <?php
     }
     else {echo "Oops, no product set!";}
-    echo $value . "   " . $_SESSION['the'];
+    //echo $value . "   " . $_SESSION['the'];
     include("include/footer.php"); 
     mysql_close($dbc2);
 ?>

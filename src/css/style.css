@@ -20,7 +20,9 @@
 
 #header2 {
     background-color: #530000;
-    width: 500px;
+    background-image: url('../img/banner.png');
+    background-repeat: none;
+    width: 490px;
     height: 150px;
     margin-left: auto;
     /*float: right;*/
@@ -29,6 +31,8 @@
     margin-top: 15px;
     font-family: Arial,Helvetica,sans-serif;
     z-index: -7;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
 }
 
 #header2:after {
@@ -144,8 +148,16 @@
 }
 
 #user_pass {
-    margin-right: 500px;
+    margin-right: 50px;
     position: absolute;
+}
+
+#input_user {
+    width: 150px;
+}
+
+#input_pass {
+    width: 150px;
 }
 
 .sign {
@@ -244,6 +256,8 @@ body {
     display: inline-block;
     text-decoration: none;
     color: black;
+    position: relative;
+    z-index: 1;
 }
 
 .product_top {
@@ -287,6 +301,49 @@ form.a {
 }
 
 /*-------------------------*/
+/*----------ADMIN----------*/
+/*-------------------------*/
+
+#admin_products {
+    vertical-align: top;
+    border: black solid 2px;
+    height: 400px;
+}
+
+#admin_user_control {
+    border: black solid 2px;
+}
+
+#admin_control_right {
+    display: inline-block;
+    width: 49%;
+}
+#admin_control_left {
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+}
+
+#tabs div {
+    white-space: normal;
+    font-size: .75em; 
+}
+
+#tab div {
+    white-space: normal;
+    font-size: .75em; 
+}
+
+.admin_edit {
+    position: relative;
+    z-index: 9999;
+}
+
+#vendor_remove {
+    vertical-align: top;
+}
+
+/*-------------------------*/
 /*-------NAVIGATION--------*/
 /*-------------------------*/
 
@@ -322,24 +379,24 @@ form.a {
 
 #menu a 
 {
-	float: left;
-	height: 25px;
-	padding: 0 25px;
-	color: #999;
-	text-transform: uppercase;
-	font: bold 12px/25px Arial, Helvetica;
-	text-decoration: none;
-	text-shadow: 0 1px 0 #000;
+    float: left;
+    height: 25px;
+    padding: 0 25px;
+    color: #999;
+    text-transform: uppercase;
+    font: bold 12px/25px Arial, Helvetica;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #000;
 }
 
 #menu li:hover > a
 {
-	color: #fafafa;
+    color: #fafafa;
 }
 
 *html #menu li a:hover /* IE6 */
 {
-	color: #fafafa;
+    color: #fafafa;
 }
 
 #menu li:hover > ul

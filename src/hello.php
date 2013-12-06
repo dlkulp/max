@@ -1,11 +1,8 @@
 <?php
     $database = 1;
+    session_start();
     $_SESSION['the'] = 0;
-    if( !isset($_POST["username"]) && !isset($_POST["password"]) ){
-        session_start();
-        //if( !isset($_SESSION['login_failed']) || $_SESSION['login_failed'] == 0 ) {
-        //    $_SESSION['login_failed'] = 1;
-        //}
+    if( !isset($_POST["username"]) || !isset($_POST["password"]) ){
         $_SESSION['login_failed'] = 0;
         $_SESSION['the'] = 1;
     }
@@ -22,21 +19,34 @@
             $database = 0;
         }
         if( $database == 1 ) {
-            $query = "SELECT username, password FROM k16768_the_max.users WHERE username = '" . $_POST['username'] . "'";
+            $query = "SELECT username, password, admin, isactive FROM k16768_the_max.users WHERE username = '" . $_POST['username'] . "'";
             $result = mysql_query($query);
             $row = mysql_fetch_array($result, MYSQL_ASSOC);
-            if( $row['password'] == md5($_POST['password']) ) {
-                session_start();
-                $_SESSION['username'] = $_POST['username'];
-                $_SESSION['login_failed'] = 1;
-                $_SESSION['the'] = 3;
-            }
-            else { 
-                session_start();
-                $_SESSION['login_failed'] = 0;
-                $_SESSION['the'] = 4;
-            }
+            
+            if( $row['isactive'] == 1 ) {
+              if( $row['password'] == md5($_POST['password']) ) {
+                  $_SESSION['username'] = $_POST['username'];
+                  $_SESSION['login_failed'] = 1;
+                  $_SESSION['the'] = 3;
+                  if( $row['admin'] == 1 ) {
+                      $_SESSION['the'] = 12;
+                      $_SESSION['admin'] = 1;
+                      $_SESSION['isactive'] = $row['isactive'];
+                  }
+              } 
+              else if( $row['password'] != md5($_POST['password']) ) { 
+                  $_SESSION['login_failed'] = 0;
+                  $_SESSION['the'] = 4;
+                  $_SESSION['isactive'] = $row['isactive'];
+              }
+             }
+             else if( $row['isactive'] == 0 ) {
+               $_SESSION['login_failed'] = 2; 
+               $_SESSION['failed_reason'] = "Account suspended";
+               $_SESSION['isactive'] = $row['isactive'];
+             }
         }
+        
         mysql_close($dbc);
     }
     echo "<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script><script type='text/javascript' src='../javascript/made_it.js'></script>";

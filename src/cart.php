@@ -38,7 +38,7 @@
 ?>
                 <div id="main_text">
                     <?php
-                        echo "cart_id: " . $cart_id . ". result4: " . $result4 . ". result2: " . $result2 . ". $_session['cart_id']: " . $_SESSION['cart_id'];
+                        //echo "cart_id " . $cart_id . ". result4: " . $result4 . ". result2: " . $result2 . ". $_session['cart_id']: " . $_SESSION['cart_id'];
                         while( $row = mysql_fetch_array($result2, MYSQL_ASSOC) ) {
                             $values = $row['product_img_s'];
                             if( strlen(trim($values)) == 0 ) {

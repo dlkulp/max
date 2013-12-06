@@ -30,9 +30,9 @@
                 </div>
             </div>
             <div id="product_info_page">
-                <p id="buy_now">
-                    <a href="cart.php?id=<?php echo $_GET['id']; ?>">add to cart</a>
-                </p>
+                <!--<p id="buy_now">
+                    <a href="cart.php?id=<?php //echo $_GET['id']; ?>">add to cart</a>
+                </p>-->
             </div>
             <div class="decription"'>
                 <?php echo $row['description'];?>

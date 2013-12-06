@@ -9,7 +9,7 @@
         echo 'Message: ' . $e->getMessage();
     }
     
-    $query = "SELECT product_id, title, description, price, product_img_s FROM k16768_the_max.products";
+    $query = "SELECT product_id, title, description, price, isactive, product_img_s FROM k16768_the_max.products";
     $result = mysql_query($query);
 ?>
 
@@ -18,35 +18,40 @@
                     <?php
                         while( $row = mysql_fetch_array($result, MYSQL_ASSOC) ) {
                             $value = $row['product_img_s'];
-                            if( strlen(trim($value)) == 0 ){
-                                $value = "img/swords.png";
-                            }
-                            echo "<div class='product'>" . 
-                                    "<a href='product_info.php?id=" . $row['product_id'] . "'>" . 
-                                        "<div class='product_img'>" .
-                                            "<img alt='product' class='product_img-1' src='" . $value . "' />" . 
-                                        "</div>" . 
-                                        "<div class='product_top'>" . 
-                                            "<div class='product_title'>" . 
-                                                "<div class='title'>" . 
-                                                    $row['title'] . 
-                                                "</div>" . 
-                                                "<div class='cost'>" . 
-                                                    "$" . $row['price'] . 
-                                                "</div>" . 
-                                            "</div>" . 
-                                            "<div class='description'>" . 
-                                                $row['description'] . 
-                                            "</div>" . 
-                                        "</div>" . 
-                                    "</a>" . 
-                                "</div>";
+                            if( $row['isactive'] == 1 ) {
+                              if( strlen(trim($value)) == 0 ){
+                                  $value = "img/swords.png";
+                              }
+                              echo "<div class='product'>" . 
+                                      "<a href='product_info.php?id=" . $row['product_id'] . "'>" . 
+                                          "<div class='product_img'>" .
+                                              "<img alt='image of product' class='product_img-1' src='" . $value . "' />" . 
+                                          "</div>" . 
+                                      "</a>" .
+                                          "<div class='product_top'>" . 
+                                              "<div class='product_title'>" . 
+                                                "<a href='product_info.php?id=" . $row['product_id'] . "'>" . 
+                                                  "<div class='title'>" . 
+                                                      $row['title'] . 
+                                                  "</div>" . 
+                                                "</a>";
+                                                  if( $_SESSION['admin'] === 1 ) echo "&nbsp;<button data-product-id='" . $row['product_id'] . "' class='admin_edit' onClick='go(this)'>edit</button>&nbsp;<button data-product-id='" . $row['product_id'] . "' class='admin_edit' onClick='go2(this)'>remove</button>";
+                                                    echo "<div class='cost'>" . 
+                                                      "$" . $row['price'] . 
+                                                  "</div>" . 
+                                              "</div>" . 
+                                              "<div class='description'>" . 
+                                                  $row['description'] . 
+                                              "</div>" . 
+                                          "</div>" . 
+                                      "</a>" . 
+                                  "</div>";
+                              }
                         }
                     ?>
                 </div>
             </div>
         </div>
-        
     </body>
     
 <?php 
